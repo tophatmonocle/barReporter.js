@@ -219,6 +219,15 @@ $(document).ready(function() {
         $(el).barReporter({ "data": [[30, "Label 1"]] });
         equal( $(el).find("#brRow0 .brPct").text(), "100%" );
     });
+    test("Percent calculated correctly with one point", function() {
+        var el = $("<div class='bar'></div>");
+
+        $(el).barReporter({ "data": [[59, "a"],[55,"b"],[45,"c"],[41,"d"]] });
+        equal( $(el).find("#brRow0 .brPct").text(), "30%" );
+        equal( $(el).find("#brRow1 .brPct").text(), "28%" );
+        equal( $(el).find("#brRow2 .brPct").text(), "23%" );
+        equal( $(el).find("#brRow3 .brPct").text(), "21%" );
+    });
     test("Show, then hide perecent", function() {
         var el = $("<div class='bar'></div>");
 
@@ -250,14 +259,14 @@ $(document).ready(function() {
         ]
 
         $(el).barReporter({"data": data, "type": "multi", "showPct": true});
-        equal( $(el).find("#brRow0 .brPct").text(), "100%" );
-        equal( $(el).find("#brRow1 .brPct").text(), "21%" );
-        equal( $(el).find("#brRow2 .brPct").text(), "79%" );
+        equal( $(el).find("#brRow0 .brPct").text(), "50%" );
+        equal( $(el).find("#brRow1 .brPct").text(), "11%" );
+        equal( $(el).find("#brRow2 .brPct").text(), "39%" );
 
         $(el).barReporter({"data": data, "type": "stacked", "showPct": true});
-        equal( $(el).find("#brRow0 .brPct").text(), "100%" );
-        equal( $(el).find("#brRow1 .brPct").text(), "21%" );
-        equal( $(el).find("#brRow2 .brPct").text(), "79%" );
+        equal( $(el).find("#brRow0 .brPct").text(), "50%" );
+        equal( $(el).find("#brRow1 .brPct").text(), "11%" );
+        equal( $(el).find("#brRow2 .brPct").text(), "39%" );
     });
 
     /*test("Benchmark test", function() {*/

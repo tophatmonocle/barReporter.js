@@ -184,10 +184,18 @@
         return scale;
     }
 
-    //calculates the percentage scale (identical to stacked scale)
+    //calculate the value to scale percent with
+    //this should be equal to the sum of all values
     $.fn.barReporter.calculate_pct_scale = function(options) {
-        var options = $.extend({}, options, { "type": "stacked"} );
-        return $.fn.barReporter.calculate_scale( options );
+        var total = 0;
+
+        for( var index in options.data ) {
+            var data = options.data[index][0];
+            if( !$.isArray(data) ) { data = [data]; }
+            $(data).each(function(i,value) { total += value; });
+        }
+
+        return total;
     }
 
     $.fn.barReporter.defaults = {
