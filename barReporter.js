@@ -74,12 +74,21 @@
 
             //Update bar data
             for( var bar_index in data ) {
+                var color = options.colors[bar_index] || options.colors[0];
+                var el = $.fn.barReporter.get_or_create_bar( row_el, bar_index, color );
+
                 var value = data[bar_index];
-                var el = $.fn.barReporter.get_or_create_bar( row_el, bar_index );
                 var width = value / scale * 100;
                 if( width > 100 ) { width = 100; }
                 $(el).css("width", width + "%");
                 $(el).text(value);
+
+                //if value > 0, add a brNonZero class
+                if( value > 0 ) {
+                    $(el).addClass("brNonZero");
+                } else {
+                    $(el).removeClass("brNonZero");
+                }
             }
 
             //Update label
@@ -143,11 +152,11 @@
     }
 
     //find or add a new bar
-    $.fn.barReporter.get_or_create_bar = function(parent, index) {
+    $.fn.barReporter.get_or_create_bar = function(parent, index, color) {
         var el = $(parent).find(".brBars > #brBar" + index);
 
         if( !el.length ) {
-            el = $("<div class='brBar' id='brBar" + index + "'></div>");
+            el = $("<div class='brBar' style='background-color:" + color + "' id='brBar" + index + "'></div>");
             $(parent).find(".brBars").append( el );
         }
         return el;
@@ -200,11 +209,12 @@
 
     $.fn.barReporter.defaults = {
         "data": [],
-        "color": "green",
         "type": "multi",
         "scale": undefined,
         "num_no_wrap_chars": 20,
-        "show_percent": true
+        "show_percent": true,
+        "colors": ["#6FBF4D", "#5b9e3e", "#356022", "#242424"],
+        "legends": []
     }
 
 })(jQuery);

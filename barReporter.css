@@ -26,6 +26,7 @@ body {
 .brRow {
 	border-bottom: 1px solid yellow;
 	display: table-row;
+    margin: 10px 0;
 }
 .brRow > div {
 	border-bottom: 1px solid #eee;
@@ -42,22 +43,23 @@ body {
 .brPct {
 	display: table-cell;
 	vertical-align: middle;
+    padding-top: 0.4em;
 }
 .brBars {
 	width: 100%;
 }
 .brBar {
+	overflow: hidden;
+	color: #fff;
 	line-height: 2em;
-
+}
+.brBar.brNonZero {
 	border-right: 1px solid rgba(0,0,0,0.4);
 	border-bottom: 1px solid rgba(0,0,0,0.4);
 	
+	box-sizing: border-box;
 	padding-right: 5px;
 	text-align: right;
-	box-sizing: border-box;
-	overflow: hidden;
-
-	color: #fff;
     background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 47%);
     background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 47%);
 
@@ -65,9 +67,3 @@ body {
 .brStacked .brBar {
 	float: left;	
 }
-
-/* default colorscheme for bars */
-#brBar0 { background-color: #6FBF4D; }
-#brBar1 { background-color: #5b9e3e; }
-#brBar2 { background-color: #477e30; }
-#brBar3 { background-color: #356022; }
