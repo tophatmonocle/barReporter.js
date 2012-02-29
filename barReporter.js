@@ -47,6 +47,11 @@
             });
         }
 
+        //Get or add legend container if we are in a stacked bar
+        if( options.legends && (options.type == "stacked") ) {
+            var legend_el = $.fn.barReporter.get_or_create_legend_container( this );
+        }
+
         //loop through rows and render them
         for( var row_index in options.data ) {
             var row_data = options.data[row_index];
@@ -71,7 +76,6 @@
                 });
             }
 
-
             //Update bar data
             for( var bar_index in data ) {
                 var color = options.colors[bar_index] || options.colors[0];
@@ -91,17 +95,13 @@
                 }
 
                 //only show inline legends for multi bars
-                if( options.legends && (options.type == "multi")  ) {
-                    var el = $.fn.barReporter.get_or_create_legend( row_el, bar_index );
+                if( options.legends ) {
 
-                    //format legend text
+                    //create a bar report in the legend container if it has been defined; otherwise,
+                    //create in the row
+                    var legend_parent_el = legend_el || row_el.find(".brLegends");
                     var legend = options.legends[bar_index] || "";
-                    if( legend.length > 20 ) {
-                        legend = legend.substr(0, 20) + "..."
-                    }
-                    legend = legend.replace(/\s/g, "&nbsp;")
-
-                    el.html( legend );
+                    $.fn.barReporter.get_or_create_legend( legend_parent_el, bar_index, legend, color );
                 }
             }
 
@@ -177,17 +177,31 @@
         return el;
     }
 
-    //find or add a new bar
-    $.fn.barReporter.get_or_create_legend = function(parent, index, legend) {
-        var el = $(parent).find(".brLegends > #brLegend" + index);
+    //find or add a bar legend
+    $.fn.barReporter.get_or_create_legend = function(parent, index, legend, color) {
+        var el = $(parent).find("#brLegend" + index);
 
         if( !el.length ) {
-            el = $("<div class='brLegend' id='brLegend" + index + "'></div>");
-            $(parent).find(".brLegends").append( el );
+            //format legend text
+            if( legend.length > 23 ) { legend = legend.substr(0, 20) + "..."; }
+            legend = legend.replace(/\s/g, "&nbsp;");
+
+            el = $("<div class='brLegend' id='brLegend" + index + "'><span style='background-color:" + color + "'>&nbsp;</span><em>" + legend + "</em></div>");
+            $(parent).append( el );
         }
         return el;
     }
 
+    //find or create the container that holds legends
+    $.fn.barReporter.get_or_create_legend_container = function(parent) {
+        var el = $(parent).find("#brLegendContainer");
+
+        if( !el.length ) {
+            el = $("<div id='brLegendContainer'></div>");
+            $(parent).append( el );
+        }
+        return el;
+    }
 
     //calculates the scale to present items out of
     $.fn.barReporter.calculate_scale = function(options) {

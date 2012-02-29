@@ -54,6 +54,9 @@ body {
     line-height: 2em;
     padding: 0 5px;
 }
+.brLegend span {
+	display: none;
+}
 .brBars {
 	width: 100%;
 }
@@ -74,4 +77,32 @@ body {
 }
 .brStacked .brBar {
 	float: left;	
+}
+.brRow {
+	clear: both;
+}
+
+/* legend container */
+#brLegendContainer:before {
+	content: "Legend:";
+	color: #999;
+	font-weight: bold;
+	border-bottom: 1px solid #ddd;
+	display: block;
+	padding: 2px 4px;
+	margin-bottom: 5px;
+}
+#brLegendContainer {
+	border-radius: 3px;
+	border: 1px solid #bbb;
+	display: inline-block;
+	padding-bottom: 5px;
+}
+#brLegendContainer .brLegend {
+	display: inline-block;
+}
+#brLegendContainer .brLegend span {
+	display: inline-block;
+	padding-right: 20px;
+	margin-right: .5em;	
 }

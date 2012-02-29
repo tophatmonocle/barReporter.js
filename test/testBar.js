@@ -333,7 +333,7 @@ $(document).ready(function() {
 
         $(el).barReporter({
             "data": data, 
-            "type": "multi", 
+            "type": "stacked", 
             "showPct": true,
             "legends": ["One", "Two", "Three", "Four"]
         });
