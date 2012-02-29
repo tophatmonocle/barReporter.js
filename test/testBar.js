@@ -268,6 +268,30 @@ $(document).ready(function() {
         equal( $(el).find("#brRow1 .brPct").text(), "11%" );
         equal( $(el).find("#brRow2 .brPct").text(), "39%" );
     });
+    /*test("Legends are properly rendered", function() {*/
+    /*var el = $("<div class='bar'></div>");*/
+
+    /*//initial data*/
+    /*$(el).barReporter({*/
+    /*"data": [ [[20,40], "Ethical"] ],*/
+    /*"type": "multi", */
+    /*"showPct": true,*/
+    /*"legends": ["Last Session", , "Current Session"]*/
+    /*});*/
+    /*equal( $(el).find("#brRow0 .brLegends #brLegend0").html(), "Last&nbsp;Session" );*/
+    /*equal( $(el).find("#brRow0 .brLegends #brLegend1").html(), "" );*/
+
+    /*//add additional data*/
+    /*$(el).barReporter({*/
+    /*"data": [ [[20,40, 80], "Ethical"] ],*/
+    /*"type": "multi", */
+    /*"showPct": true,*/
+    /*"legends": ["A very long legend name", , "Current Session"]*/
+    /*});*/
+    /*equal( $(el).find("#brRow0 .brLegends #brLegend0").html(), "A&nbsp;very&nbsp;long&nbsp;legend&nbsp;n..." );*/
+    /*equal( $(el).find("#brRow0 .brLegends #brLegend2").html(), "Current&nbsp;Session" );*/
+    /*});*/
+
 
     /*test("Benchmark test", function() {*/
     /*var el = $("<div class='bar'></div>");*/
@@ -299,18 +323,22 @@ $(document).ready(function() {
     /*$("body").append(el);*/
     /*render_fn();*/
     /*});*/
+    test("Styling test", function() {
+        var el = $("<div class='bar'></div>");
+        var data = [
+            [[20,40, 80, 30], "Ethical"],
+            [30, "Unethical"],
+            [[100,10], "Morally ambiguous"],
+        ]
 
-    /*test("Styling test", function() {*/
-    /*var el = $("<div class='bar'></div>");*/
-    /*var data = [*/
-    /*[[20,40, 80], "Ethical"],*/
-    /*[30, "Unethical"],*/
-    /*[[100,10], "Morally ambiguous"],*/
-    /*]*/
-
-    /*$(el).barReporter({"data": data, "type": "multi", "showPct": true});*/
-    /*$("body").append(el);*/
-    /*});*/
+        $(el).barReporter({
+            "data": data, 
+            "type": "multi", 
+            "showPct": true,
+            "legends": ["One", "Two", "Three", "Four"]
+        });
+        $("body").append(el);
+    });
 
 });
 

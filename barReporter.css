@@ -40,10 +40,19 @@ body {
 }
 .brLabel,
 .brBars,
+.brLegends,
 .brPct {
 	display: table-cell;
 	vertical-align: middle;
     padding-top: 0.4em;
+}
+.brLegends {
+    vertical-align: top;
+}
+.brLegend {
+    height: 2em;
+    line-height: 2em;
+    padding: 0 5px;
 }
 .brBars {
 	width: 100%;
@@ -62,7 +71,6 @@ body {
 	text-align: right;
     background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 47%);
     background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 47%);
-
 }
 .brStacked .brBar {
 	float: left;	

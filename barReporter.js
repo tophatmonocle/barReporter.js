@@ -75,7 +75,7 @@
             //Update bar data
             for( var bar_index in data ) {
                 var color = options.colors[bar_index] || options.colors[0];
-                var el = $.fn.barReporter.get_or_create_bar( row_el, bar_index, color );
+                var el = $.fn.barReporter.get_or_create_bar( row_el, bar_index, color, legend );
 
                 var value = data[bar_index];
                 var width = value / scale * 100;
@@ -88,6 +88,20 @@
                     $(el).addClass("brNonZero");
                 } else {
                     $(el).removeClass("brNonZero");
+                }
+
+                //only show inline legends for multi bars
+                if( options.legends && (options.type == "multi")  ) {
+                    var el = $.fn.barReporter.get_or_create_legend( row_el, bar_index );
+
+                    //format legend text
+                    var legend = options.legends[bar_index] || "";
+                    if( legend.length > 20 ) {
+                        legend = legend.substr(0, 20) + "..."
+                    }
+                    legend = legend.replace(/\s/g, "&nbsp;")
+
+                    el.html( legend );
                 }
             }
 
@@ -145,6 +159,7 @@
             el = $("<div class='brRow' id='brRow" + id + "'>" +
                 "<div class='brLabel'></div>" +
                 "<div class='brBars'></div>" +
+                "<div class='brLegends'></div>" +
                 "<div class='brPct'></div>");
             $(parent).append( el );
         }
@@ -161,6 +176,18 @@
         }
         return el;
     }
+
+    //find or add a new bar
+    $.fn.barReporter.get_or_create_legend = function(parent, index, legend) {
+        var el = $(parent).find(".brLegends > #brLegend" + index);
+
+        if( !el.length ) {
+            el = $("<div class='brLegend' id='brLegend" + index + "'></div>");
+            $(parent).find(".brLegends").append( el );
+        }
+        return el;
+    }
+
 
     //calculates the scale to present items out of
     $.fn.barReporter.calculate_scale = function(options) {

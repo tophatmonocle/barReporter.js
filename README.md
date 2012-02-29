@@ -39,6 +39,7 @@ In addition to `data`, several options may be specified:
 * `num_no_wrap_chars`: The maximum number of characters in a label that will appear on one line before being wrapped (default: 20)
 * `scale`: A value to scale bars by; if not specified, will default to highest value passed
 * `colors`: A list of bar colors
+* `legends`: A list of legends; only shows when rendering a `multi` bar type
 
 ##Caveats:
 
