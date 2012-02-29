@@ -323,22 +323,23 @@ $(document).ready(function() {
     /*$("body").append(el);*/
     /*render_fn();*/
     /*});*/
-    test("Styling test", function() {
-        var el = $("<div class='bar'></div>");
-        var data = [
-            [[20,40, 80, 30], "Ethical"],
-            [30, "Unethical"],
-            [[100,10], "Morally ambiguous"],
-        ]
 
-        $(el).barReporter({
-            "data": data, 
-            "type": "stacked", 
-            "showPct": true,
-            "legends": ["One", "Two", "Three", "Four"]
-        });
-        $("body").append(el);
-    });
+    /*test("Styling test", function() {*/
+    /*var el = $("<div class='bar'></div>");*/
+    /*var data = [*/
+    /*[[20,40, 80, 30], "Ethical"],*/
+    /*[30, "Unethical"],*/
+    /*[[100,10], "Morally ambiguous"],*/
+    /*]*/
+
+    /*$(el).barReporter({*/
+    /*"data": data, */
+    /*"type": "stacked", */
+    /*"showPct": true,*/
+    /*"legends": ["One", "Two", "Three", "Four"]*/
+    /*});*/
+    /*$("body").append(el);*/
+    /*});*/
 
 });
 

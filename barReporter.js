@@ -47,9 +47,15 @@
             });
         }
 
+        //get or create the overall report container
+        $.fn.barReporter.get_or_create_report_container( this );
+        var report_el = $(this).children("#brReportContainer");
+
         //Get or add legend container if we are in a stacked bar
-        if( options.legends && (options.type == "stacked") ) {
-            var legend_el = $.fn.barReporter.get_or_create_legend_container( this );
+        if( options.legends.length && (options.type == "stacked") ) {
+            var legend_el = $(this).children("#brLegendContainer");
+        } else {
+            $(this).children("#brLegendContainer").remove();
         }
 
         //loop through rows and render them
@@ -57,7 +63,7 @@
             var row_data = options.data[row_index];
 
             //get or create row
-            var row_el = $.fn.barReporter.get_or_create_row(this, row_index);
+            var row_el = $.fn.barReporter.get_or_create_row(report_el, row_index);
 
             //only redraw rows if data has been modified
             if( !options_modified && !$.fn.barReporter.is_modified( row_el, row_data ) ) {
@@ -79,7 +85,7 @@
             //Update bar data
             for( var bar_index in data ) {
                 var color = options.colors[bar_index] || options.colors[0];
-                var el = $.fn.barReporter.get_or_create_bar( row_el, bar_index, color, legend );
+                var el = $.fn.barReporter.get_or_create_bar( row_el, bar_index, color );
 
                 var value = data[bar_index];
                 var width = value / scale * 100;
@@ -95,7 +101,7 @@
                 }
 
                 //only show inline legends for multi bars
-                if( options.legends ) {
+                if( options.legends.length ) {
 
                     //create a bar report in the legend container if it has been defined; otherwise,
                     //create in the row
@@ -183,6 +189,7 @@
 
         if( !el.length ) {
             //format legend text
+            legend = legend.toString();
             if( legend.length > 23 ) { legend = legend.substr(0, 20) + "..."; }
             legend = legend.replace(/\s/g, "&nbsp;");
 
@@ -192,12 +199,12 @@
         return el;
     }
 
-    //find or create the container that holds legends
-    $.fn.barReporter.get_or_create_legend_container = function(parent) {
-        var el = $(parent).find("#brLegendContainer");
+    //find or create the container that holds the report and legend
+    $.fn.barReporter.get_or_create_report_container = function(parent) {
+        var el = $(parent).children("#brReportContainer");
 
         if( !el.length ) {
-            el = $("<div id='brLegendContainer'></div>");
+            el = $("<div id='brReportContainer'></div><div id='brLegendContainer'></div>");
             $(parent).append( el );
         }
         return el;
