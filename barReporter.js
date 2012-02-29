@@ -53,7 +53,7 @@
 
         //Get or add legend container if we are in a stacked bar
         if( options.legends.length && (options.type == "stacked") ) {
-            var legend_el = $(this).children("#brLegendContainer");
+            var legend_container_el = $(this).children("#brLegendContainer");
         } else {
             $(this).children("#brLegendContainer").remove();
         }
@@ -105,9 +105,16 @@
 
                     //create a bar report in the legend container if it has been defined; otherwise,
                     //create in the row
-                    var legend_parent_el = legend_el || row_el.find(".brLegends");
-                    var legend = options.legends[bar_index] || "";
-                    $.fn.barReporter.get_or_create_legend( legend_parent_el, bar_index, legend, color );
+                    var legend_parent_el = legend_container_el || row_el.find(".brLegends");
+                    var legend_el = $.fn.barReporter.get_or_create_legend( legend_parent_el, bar_index, color );
+
+                    //format legend text
+                    legend = options.legends[bar_index].toString();
+                    if( legend.length > 23 ) { legend = legend.substr(0, 20) + "..."; }
+                    legend = legend.replace(/\s/g, "&nbsp;");
+                    
+                    //add legend
+                    legend_el.find("em").html(legend);
                 }
             }
 
@@ -184,16 +191,11 @@
     }
 
     //find or add a bar legend
-    $.fn.barReporter.get_or_create_legend = function(parent, index, legend, color) {
+    $.fn.barReporter.get_or_create_legend = function(parent, index, color) {
         var el = $(parent).find("#brLegend" + index);
 
         if( !el.length ) {
-            //format legend text
-            legend = legend.toString();
-            if( legend.length > 23 ) { legend = legend.substr(0, 20) + "..."; }
-            legend = legend.replace(/\s/g, "&nbsp;");
-
-            el = $("<div class='brLegend' id='brLegend" + index + "'><span style='background-color:" + color + "'>&nbsp;</span><em>" + legend + "</em></div>");
+            el = $("<div class='brLegend' id='brLegend" + index + "'><span style='background-color:" + color + "'>&nbsp;</span><em></em></div>");
             $(parent).append( el );
         }
         return el;
