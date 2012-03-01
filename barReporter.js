@@ -109,7 +109,8 @@
                     var legend_el = $.fn.barReporter.get_or_create_legend( legend_parent_el, bar_index, color );
 
                     //format legend text
-                    legend = options.legends[bar_index].toString();
+                    legend = options.legends[bar_index] || "";
+                    legend = legend.toString();
                     if( legend.length > 23 ) { legend = legend.substr(0, 20) + "..."; }
                     legend = legend.replace(/\s/g, "&nbsp;");
                     
