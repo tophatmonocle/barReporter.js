@@ -40,6 +40,7 @@ In addition to `data`, several options may be specified:
 * `scale`: A value to scale bars by; if not specified, will default to highest value passed
 * `colors`: A list of bar colors
 * `legends`: A list of legends; only shows when rendering a `multi` bar type
+* `inlineLegends`: Bars with `multi` label types can choose to show labels inline, to the right of each bar; defaults to false
 
 ##Caveats:
 

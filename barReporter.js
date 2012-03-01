@@ -52,7 +52,7 @@
         var report_el = $(this).children("#brReportContainer");
 
         //Get or add legend container if we are in a stacked bar
-        if( options.legends.length && (options.type == "stacked") ) {
+        if( options.legends.length && ((options.type == "stacked") || (options.inlineLegends == false)) ) {
             var legend_container_el = $(this).children("#brLegendContainer");
         } else {
             $(this).children("#brLegendContainer").remove();
@@ -266,6 +266,7 @@
         "scale": undefined,
         "num_no_wrap_chars": 20,
         "show_percent": true,
+        "inlineLegends": false,
         "colors": ["#6FBF4D", "#5b9e3e", "#356022", "#242424"],
         "legends": []
     }

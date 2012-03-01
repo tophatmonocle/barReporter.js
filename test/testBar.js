@@ -275,7 +275,29 @@ $(document).ready(function() {
         equal( $(el).find("#brRow1 .brPct").text(), "11%" );
         equal( $(el).find("#brRow2 .brPct").text(), "39%" );
     });
+
+    module("Legends");
     test("Multi-point legends are properly rendered", function() {
+        var el = $("<div class='bar'></div>");
+
+        //initial data
+        var data = {
+            "data": [ [[20,40], "Ethical"] ],
+            "type": "multi", 
+            "showPct": true,
+            "legends": ["Last Session", , "Current Session"]
+        }
+        $(el).barReporter(data);
+        equal( $(el).find("#brLegendContainer #brLegend0 em").html(), "Last&nbsp;Session" );
+        equal( $(el).find("#brLegendContainer #brLegend1 em").html(), "" );
+        ok( !$(el).find("#brLegendContainer #brLegend2 em").length );
+
+        //add additional data
+        data["data"][0][0].push(30);
+        $(el).barReporter(data);
+        equal( $(el).find("#brLegendContainer #brLegend2 em").html(), "Current&nbsp;Session" );
+    });
+    test("Multi-point inline legends are properly rendered", function() {
         var el = $("<div class='bar'></div>");
 
         //initial data
@@ -284,22 +306,23 @@ $(document).ready(function() {
             "data": [ [[20,40], "Ethical"] ],
             "type": "multi", 
             "showPct": true,
+            "inlineLegends": true,
             "legends": ["Last Session", , "Current Session"]
         }
         $(el).barReporter(data);
         equal( $(el).find("#brRow0 .brLegends #brLegend0 em").html(), "Last&nbsp;Session" );
         equal( $(el).find("#brRow0 .brLegends #brLegend1 em").html(), "" );
+        ok( !$(el).find("#brRow0 .brLegends #brLegend2 em").length );
 
         //add additional data
         data["data"][0][0].push(30);
         $(el).barReporter(data);
         equal( $(el).find("#brRow0 .brLegends #brLegend2 em").html(), "Current&nbsp;Session" );
     });
-    test("Stacked legends are properly rendered", function() {
+    test("Stacked inline legends are properly rendered", function() {
         var el = $("<div class='bar'></div>");
 
         //initial data
-        
         var data = {
             "data": [ [[20,40], "Ethical"] ],
             "type": "stacked", 
@@ -315,7 +338,6 @@ $(document).ready(function() {
         $(el).barReporter(data);
         equal( $(el).find("#brLegendContainer #brLegend2 em").html(), "Current&nbsp;Session" );
     });
-
 
 
     /*test("Benchmark test", function() {*/
@@ -361,7 +383,8 @@ $(document).ready(function() {
     /*"data": data, */
     /*"type": "stacked", */
     /*"showPct": true,*/
-    /*"legends": ["One", "Two", "Three", "Four"]*/
+    /*"inlineLegends": false,*/
+    /*"legends": ["One", "Two long options", "Three long options that go", "Fourever long optoins"]*/
     /*});*/
     /*$("body").append(el);*/
     /*});*/
