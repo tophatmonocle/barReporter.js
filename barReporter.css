@@ -96,14 +96,16 @@ body {
 	margin-top: .5em;
 	border-radius: 3px;
 	border: 1px solid #bbb;
-	display: inline-block;
 	padding-bottom: 5px;
 }
 #brLegendContainer .brLegend {
 	display: inline-block;
+    margin-bottom: .5em;
 }
 #brLegendContainer .brLegend span {
 	display: inline-block;
 	padding-right: 1.5em;
 	margin-right: .5em;	
+    border: 1px solid #000;
+    box-shadow: 1px 1px 1px #aaa;
 }
