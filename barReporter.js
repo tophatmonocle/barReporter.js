@@ -88,7 +88,7 @@
                 var el = $.fn.barReporter.get_or_create_bar( row_el, bar_index, color );
 
                 var value = data[bar_index];
-                var width = value / scale * 100;
+                var width = scale ? value / scale * 100 : 0;
                 if( width > 100 ) { width = 100; }
                 $(el).css("width", width + "%");
                 $(el).text(value);
@@ -127,11 +127,13 @@
             if( options.show_percent ) {
 
                 //calculate total pct for all row data based on data_scale
-                var total_pct = 0;
-                $(data).each( function(row_index, value) {
-                    total_pct += value / pct_scale * 100;
-                });
-                total_pct = Math.round(total_pct);
+                if( pct_scale ) {
+                    var total_pct = 0;
+                    for( var index in data ) { total_pct += data[index] / pct_scale * 100; }
+                    total_pct = Math.round(total_pct);
+                } else {
+                    var total_pct = 0;
+                }
 
                 //render value
                 $(row_el).find(".brPct").html( total_pct + "%" );

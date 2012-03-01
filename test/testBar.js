@@ -26,6 +26,13 @@ $(document).ready(function() {
         equal( $(el).find("#brRow1 #brBar0")[0].style.width, "100%" );
 
     });
+    test("render bars with no value", function() {
+        var el = $("<div class='bar'></div>");
+        var data = [[0, "Label 1"], [0, "Label 2"]];
+        $(el).barReporter({"data": data});
+
+        equal( $(el).find("#brRow0 #brBar0")[0].style.width, "0%" );
+    });
     test("render multiple bars", function() {
         var el = $("<div class='bar'></div>");
         var data = [[20, "Label 1"], [40, "Label 2"]];
